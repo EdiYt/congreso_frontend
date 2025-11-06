@@ -11,6 +11,14 @@ body, .participantes-bg {
   box-shadow: 0 2px 18px 0 #eaeaea;
 }
 
+.header-logo {
+  margin-left: 18px;
+}
+
+.header-menu {
+  margin-right: 22px;
+}
+
 .participantes-titulo {
   font-size: 2.5rem;
   color: #5231af;
@@ -37,19 +45,82 @@ body, .participantes-bg {
 
 .participantes-btn {
   border-radius: 999px;
-  background: #795ce1;
-  color: #fff;
   font-weight: bold;
   box-shadow: 0 1px 8px #ebf4ff33;
   font-size: 1.12rem;
   border: none;
-  margin-left: 5px;
-  transition: background .2s;
-  padding: 0.3rem 1.45rem;
+  padding: 0.38rem 1.7rem;
+  letter-spacing: 0.5px;
 }
 
-.participantes-btn:hover {
+.participantes-btn-buscar {
+  background: #795ce1;
+  color: #fff;
+  margin-left: 7px;
+  transition: background .2s;
+}
+
+.participantes-btn-buscar:hover {
   background: #3b379e;
+  color: #fff;
+  box-shadow: 0 2px 16px #a7a6d5;
+}
+
+.participantes-btn-registro {
+  background: #2196f3;
+  color: #fff;
+  margin-bottom: 40px;
+  margin-top: 12px;
+  transition: background .18s;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.participantes-btn-registro:hover {
+  background: #1565c0;
+  color: #fff;
+  box-shadow: 0 2px 16px #8ec3f6;
+  text-decoration: none;
+}
+
+a.participantes-btn-registro, 
+a.participantes-btn-registro:hover {
+  text-decoration: none;
+  outline: none;
+}
+
+.participante-card {
+  background: #fcfdff;
+  border-radius: 1.7rem;
+  box-shadow: 0 2px 18px 0 #c8d2ea;
+  border: none;
+  margin-bottom: 2.1rem;
+  transition: box-shadow .18s,transform .18s;
+}
+.participante-card:hover {
+  box-shadow: 0 8px 32px 0 #c3cbd8, 0 1.5px 1px 0px #ebeafd inset;
+  transform: translateY(-2px) scale(1.02);
+}
+.avatar-img {
+  border: 4px solid #51219f;
+  background: #fff;
+}
+.participante-nombre {
+  color: #4c29d6;
+  text-shadow: 0px 1px 8px #e6eaff;
+  letter-spacing: 1px;
+}
+.participante-twitter {
+  color: #23a1ae;
+  font-weight: 500;
+}
+.participante-ocupacion {
+  background: #f7fbe9;
+  color: #116e3e;
+  padding: 4px 13px;
+  border-radius: 999px;
+  font-weight: 500;
+  display: inline-block;
 }
 
 .position-relative {
@@ -73,7 +144,7 @@ body, .participantes-bg {
   transition: background-color 0.2s;
 }
 
-.dropdown-item:hover, 
+.dropdown-item:hover,
 .dropdown-item:focus {
   background-color: #ece6fc;
   color: #511cc2;

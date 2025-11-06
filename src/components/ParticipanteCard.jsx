@@ -22,6 +22,7 @@ const ParticipanteCard = ({ participante }) => (
       <div className="mb-1 fs-5 participante-twitter">
         @{participante.usuario_twitter.replace(/^@/, "")}
       </div>
+      <br />
       <div className="fs-6 participante-ocupacion mb-2">{participante.ocupacion}</div>
     </div>
   </div>

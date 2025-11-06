@@ -48,14 +48,14 @@ const ParticipantesList = () => {
 
   return (
     <div className="participantes-bg">
-      <div className="participantes-header row align-items-center border-bottom mb-5">
-        <div className="col-2 text-start">
+      <div className="participantes-header d-flex align-items-center justify-content-between border-bottom mb-5 px-4">
+        <div className="header-logo">
           <img src={ticImg} alt="Logo TICs" className="img-fluid" style={{ maxWidth: 120 }} />
         </div>
-        <div className="col-8">
-          <h2 className="participantes-titulo">Asistentes registrados</h2>
+        <div style={{ flex: 1 }}>
+          <h2 className="participantes-titulo text-center">Participantes registrados</h2>
         </div>
-        <div className="col-2 text-end position-relative">
+        <div className="header-menu position-relative">
           <img
             src={menuImg}
             alt="Menú"
@@ -91,11 +91,11 @@ const ParticipantesList = () => {
               value={search}
               onChange={handleSearchChange}
             />
-            <button className="btn participantes-btn" type="submit">
+            <button className="participantes-btn participantes-btn-buscar" type="submit">
               Buscar
             </button>
           </form>
-          <Link to="/registro" className="btn participantes-btn mb-3 px-4">
+          <Link to="/registro" className="participantes-btn participantes-btn-registro px-4">
             Registro
           </Link>
           {loading ? (
