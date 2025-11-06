@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import ParticipanteCard from "../components/ParticipanteCard";
 import { Link, useNavigate } from "react-router-dom";
 import ticImg from "../assets/tic.png";
-import "../styles/participantes.css";
+import menuImg from "../assets/menu.png";
+import "../styles/participantesList.css";
 
 const ParticipantesList = () => {
   const [participantes, setParticipantes] = useState([]);
@@ -16,24 +17,23 @@ const ParticipantesList = () => {
   }, []);
 
   const fetchParticipantes = async (filter = "") => {
-  setLoading(true);
-  try {
-    let url;
-    if (!filter) {
-      url = "http://localhost:3000/api/listado";
-    } else {
-      url = `http://localhost:3000/api/listado/buscar?q=${encodeURIComponent(filter)}`;
+    setLoading(true);
+    try {
+      let url;
+      if (!filter) {
+        url = "http://localhost:3000/api/listado";
+      } else {
+        url = `http://localhost:3000/api/listado/buscar?q=${encodeURIComponent(filter)}`;
+      }
+      const res = await fetch(url);
+      const data = await res.json();
+      setParticipantes(Array.isArray(data) ? data : []);
+    } catch (error) {
+      setParticipantes([]);
+    } finally {
+      setLoading(false);
     }
-    const res = await fetch(url);
-    const data = await res.json();
-    setParticipantes(Array.isArray(data) ? data : []);
-  } catch (error) {
-    setParticipantes([]);
-  } finally {
-    setLoading(false);
-  }
-};
-
+  };
 
   const handleSearchChange = (e) => setSearch(e.target.value);
   const handleSearchSubmit = (e) => {
@@ -47,26 +47,33 @@ const ParticipantesList = () => {
   };
 
   return (
-    <div className="container-fluid min-vh-100 d-flex flex-column">
-      {/* Header */}
-      <div className="row py-4 align-items-center border-bottom">
+    <div className="participantes-bg">
+      <div className="participantes-header row align-items-center border-bottom mb-5">
         <div className="col-2 text-start">
           <img src={ticImg} alt="Logo TICs" className="img-fluid" style={{ maxWidth: 120 }} />
         </div>
-        <div className="col-8 text-center">
-          <h2 className="fw-bold text-primary">Asistentes registrados</h2>
+        <div className="col-8">
+          <h2 className="participantes-titulo">Asistentes registrados</h2>
         </div>
         <div className="col-2 text-end position-relative">
-          <div 
-            className="menu-hamburguesa d-inline-block"
-            style={{ cursor: "pointer" }} 
-            onClick={() => setMenuOpen(v => !v)}>
-            <span style={{display: 'block', height: 4, background:'#222', marginBottom:4, borderRadius: 2}} />
-            <span style={{display: 'block', height: 4, background:'#222', marginBottom:4, borderRadius: 2}} />
-            <span style={{display: 'block', height: 4, background:'#222', borderRadius: 2}} />
-          </div>
+          <img
+            src={menuImg}
+            alt="Menú"
+            onClick={() => setMenuOpen(v => !v)}
+            style={{
+              width: 38,
+              height: 38,
+              borderRadius: 10,
+              cursor: "pointer",
+              background: "#fff",
+              boxShadow: "0 1px 7px #ccc",
+              border: "1.5px solid #e5e5e9",
+              padding: "6px"
+            }}
+            tabIndex={0}
+          />
           {menuOpen && (
-            <div className="bg-white rounded shadow p-2 position-absolute" style={{zIndex:30, top:40, right:0}}>
+            <div className="bg-white rounded shadow p-2 position-absolute" style={{ zIndex: 30, top: 42, right: 0 }}>
               <button className="dropdown-item" onClick={() => handleNavigate("/")}>Inicio</button>
               <button className="dropdown-item" onClick={() => handleNavigate("/participantes")}>Listado</button>
               <button className="dropdown-item" onClick={() => handleNavigate("/registro")}>Registro</button>
@@ -74,10 +81,9 @@ const ParticipantesList = () => {
           )}
         </div>
       </div>
-      {/* Main Content */}
-      <div className="row justify-content-center mt-4 flex-grow-1">
+      <div className="row justify-content-center mt-3">
         <div className="col-md-8">
-          <form onSubmit={handleSearchSubmit} className="input-group mb-3">
+          <form onSubmit={handleSearchSubmit} className="input-group mb-3 participantes-search-form">
             <input
               type="text"
               className="form-control"
@@ -85,11 +91,11 @@ const ParticipantesList = () => {
               value={search}
               onChange={handleSearchChange}
             />
-            <button className="btn btn-outline-primary" type="submit">
+            <button className="btn participantes-btn" type="submit">
               Buscar
             </button>
           </form>
-          <Link to="/registro" className="btn btn-success mb-3">
+          <Link to="/registro" className="btn participantes-btn mb-3 px-4">
             Registro
           </Link>
           {loading ? (
