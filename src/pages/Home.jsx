@@ -16,7 +16,7 @@ const Home = () => {
         <img src={universidadImg} alt="Logo Universidad" className="home-logo-img" />
         <img src={ticImg} alt="Logo Congreso TICs" className="home-logo-img" />
       </div>
-      <h1 className="home-title">Congreso TICs Full Stack</h1>
+      <h1 className="home-title">Congreso de Tecnologías de la Información</h1>
       <button className="btn btn-primary btn-lg mt-3 shadow" onClick={handleEntrar}>
         Entrar
       </button>
