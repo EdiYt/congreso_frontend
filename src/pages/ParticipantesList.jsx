@@ -22,7 +22,7 @@ const ParticipantesList = () => {
     if (!filter) {
       url = "http://localhost:3000/api/listado";
     } else {
-      url = `http://localhost:3000/api/listado/buscar?search=${encodeURIComponent(filter)}`;
+      url = `http://localhost:3000/api/listado/buscar?q=${encodeURIComponent(filter)}`;
     }
     const res = await fetch(url);
     const data = await res.json();
