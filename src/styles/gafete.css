@@ -100,10 +100,42 @@
   padding: 40px 0;
   flex-direction: row;
 }
+
 @media (max-width: 900px) {
   .gafete-contenedor {
     flex-direction: column;
     align-items: center;
     gap: 20px;
+    padding: 22px 0;
+  }
+}
+@media (max-width: 650px) {
+  .gafete-cara, .gafete-cara2 {
+    width: 98vw;
+    max-width: 325px;
+    min-width: 180px;
+    height: auto;
+    padding: 1.1rem 0.7rem;
+  }
+  .gafete-avatar {
+    width: 80px;
+    height: 80px;
+    margin-bottom: 10px;
+  }
+  .gafete-titulo {
+    font-size: 1.44rem;
+  }
+  .gafete-evento,
+  .gafete-evento2,
+  .gafete-nombre,
+  .gafete-ocupacion {
+    font-size: 1rem;
+  }
+}
+@media (max-width: 410px) {
+  .gafete-cara, .gafete-cara2 {
+    font-size: 0.85rem;
+    padding: 0.55rem 0.18rem;
+    min-width: 0;
   }
 }
