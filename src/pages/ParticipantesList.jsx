@@ -53,7 +53,7 @@ const ParticipantesList = () => {
           <img src={ticImg} alt="Logo TICs" className="img-fluid" style={{ maxWidth: 120 }} />
         </div>
         <div style={{ flex: 1 }}>
-          <h2 className="participantes-titulo text-center">Participantes registrados</h2>
+          <h2 className="participantes-titulo text-center">Asistentes registrados</h2>
         </div>
         <div className="header-menu position-relative">
           <img
