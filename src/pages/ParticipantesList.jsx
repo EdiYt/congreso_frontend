@@ -21,9 +21,9 @@ const ParticipantesList = () => {
     try {
       let url;
       if (!filter) {
-        url = "http://localhost:3000/api/listado";
+        url = "https://congreso-backend-jfg5.onrender.com/api/listado";
       } else {
-        url = `http://localhost:3000/api/listado/buscar?q=${encodeURIComponent(filter)}`;
+        url = `https://congreso-backend-jfg5.onrender.com/api/listado/buscar?q=${encodeURIComponent(filter)}`;
       }
       const res = await fetch(url);
       const data = await res.json();

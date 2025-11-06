@@ -8,7 +8,7 @@ const Gafete = () => {
   const [participante, setParticipante] = useState(null);
 
   useEffect(() => {
-    fetch(`http://localhost:3000/api/participante/${id}`)
+    fetch(`https://congreso-backend-jfg5.onrender.com/api/participante/${id}`)
       .then((res) => res.json())
       .then((data) => setParticipante(data));
   }, [id]);
