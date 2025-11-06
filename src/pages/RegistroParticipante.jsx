@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import avatar1 from "../assets/avatar1.png";
 import avatar2 from "../assets/avatar2.png";
 import avatar3 from "../assets/avatar3.png";
+import HeaderMenu from "../components/HeaderMenu";
 import "../styles/registro.css";
 
 const RegistroParticipante = () => {
@@ -52,7 +53,8 @@ const RegistroParticipante = () => {
   };
 
   return (
-    <div className="registro-bg d-flex align-items-center">
+    <div className="registro-bg d-flex flex-column align-items-center">
+      <HeaderMenu />
       <form className="registro-formulario" onSubmit={handleSubmit}>
         <div className="registro-titulo">Registro de Participante</div>
         {error && <div className="alert alert-danger py-2 mb-2">{error}</div>}
