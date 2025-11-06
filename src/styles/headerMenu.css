@@ -60,3 +60,34 @@
   color: #511cc2;
   font-weight: 600;
 }
+
+@media (max-width: 650px) {
+  .header-menu-bar {
+    flex-direction: column;
+    align-items: flex-start;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    gap: 7px;
+  }
+  .header-logo img {
+    max-width: 60px;
+    margin-bottom: 2px;
+  }
+  .header-menu img {
+    width: 30px;
+    height: 30px;
+    padding: 3px;
+  }
+  .menu-dropdown {
+    top: 34px;
+    right: 0;
+    min-width: 150px;
+    padding: 4px 0;
+  }
+  .menu-dropdown .dropdown-item {
+    font-size: 0.98rem;
+    padding: 6px 10px;
+  }
+}
