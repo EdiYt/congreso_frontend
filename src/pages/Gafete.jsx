@@ -22,10 +22,18 @@ const Gafete = () => {
       <HeaderMenu />
       <div className="gafete-contenedor">
         <div className="gafete-cara">
-          <img src={participante.avatar} alt="avatar" className="gafete-avatar" />
-          <div className="gafete-titulo">{participante.nombre} {participante.apellidos}</div>
+          <img
+            src={participante.avatar}
+            alt="avatar"
+            className="gafete-avatar"
+          />
+          <div className="gafete-titulo">
+            {participante.nombre} {participante.apellidos}
+          </div>
           <br />
-          <div className="gafete-twitter">@{participante.usuario_twitter.replace(/^@/, "")}</div>
+          <div className="gafete-twitter">
+            @{participante.usuario_twitter.replace(/^@/, "")}
+          </div>
           <br />
           <div className="gafete-ocupacion">{participante.ocupacion}</div>
           <div className="gafete-email">{participante.email}</div>
