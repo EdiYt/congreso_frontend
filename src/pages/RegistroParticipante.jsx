@@ -1,9 +1,8 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-
 import avatar1 from "../assets/avatar1.png";
 import avatar2 from "../assets/avatar2.png";
 import avatar3 from "../assets/avatar3.png";
+import "../styles/registro.css";
 
 const RegistroParticipante = () => {
   const [form, setForm] = useState({
@@ -12,16 +11,14 @@ const RegistroParticipante = () => {
     email: "",
     usuario_twitter: "",
     ocupacion: "",
-    avatar: avatar1, 
+    avatar: avatar1,
     terminos: false,
   });
   const [error, setError] = useState("");
-  const navigate = useNavigate();
-
   const AVATAR_OPTIONS = [avatar1, avatar2, avatar3];
 
   const handleChange = (e) => {
-    const { name, type, value, checked } = e.target;
+    const { name, value, type, checked } = e.target;
     setForm((prev) => ({
       ...prev,
       [name]: type === "checkbox" ? checked : value,
@@ -48,69 +45,63 @@ const RegistroParticipante = () => {
         body: JSON.stringify(form),
       });
       if (!res.ok) throw new Error();
-      navigate("/participantes");
+      window.location.href = "/participantes";
     } catch {
       setError("Error al registrar el participante.");
     }
   };
 
   return (
-    <div className="container py-4" style={{ maxWidth: "480px" }}>
-      <h2 className="mb-4 text-primary fw-bold">Registro de Participante</h2>
-      {error && <div className="alert alert-danger">{error}</div>}
-      <form onSubmit={handleSubmit}>
-        <div className="mb-3">
-          <input className="form-control" name="nombre" placeholder="Nombre" value={form.nombre} onChange={handleChange} required />
-        </div>
-        <div className="mb-3">
-          <input className="form-control" name="apellidos" placeholder="Apellidos" value={form.apellidos} onChange={handleChange} required />
-        </div>
-        <div className="mb-3">
-          <input className="form-control" type="email" name="email" placeholder="Correo electrónico" value={form.email} onChange={handleChange} required />
-        </div>
-        <div className="mb-3">
-          <input className="form-control" name="usuario_twitter" placeholder="Usuario de Twitter" value={form.usuario_twitter} onChange={handleChange} required />
-        </div>
-        <div className="mb-3">
-          <input className="form-control" name="ocupacion" placeholder="Ocupación" value={form.ocupacion} onChange={handleChange} required />
-        </div>
-
+    <div className="registro-bg d-flex align-items-center">
+      <form className="registro-formulario" onSubmit={handleSubmit}>
+        <div className="registro-titulo">Registro de Participante</div>
+        {error && <div className="alert alert-danger py-2 mb-2">{error}</div>}
         <div className="mb-4">
-          <div className="mb-2 fw-bold">Selecciona tu avatar:</div>
-          <div className="d-flex gap-3">
+          <label className="registro-label">Nombre</label>
+          <input className="form-control rounded-pill" name="nombre" value={form.nombre} onChange={handleChange} required />
+        </div>
+        <div className="mb-4">
+          <label className="registro-label">Apellidos</label>
+          <input className="form-control rounded-pill" name="apellidos" value={form.apellidos} onChange={handleChange} required />
+        </div>
+        <div className="mb-4">
+          <label className="registro-label">Correo electrónico</label>
+          <input className="form-control rounded-pill" type="email" name="email" value={form.email} onChange={handleChange} required />
+        </div>
+        <div className="mb-4">
+          <label className="registro-label">Usuario de Twitter</label>
+          <input className="form-control rounded-pill" name="usuario_twitter" value={form.usuario_twitter} onChange={handleChange} required />
+        </div>
+        <div className="mb-4">
+          <label className="registro-label">Ocupación</label>
+          <input className="form-control rounded-pill" name="ocupacion" value={form.ocupacion} onChange={handleChange} required />
+        </div>
+        <div className="mb-4">
+          <div className="registro-label">Selecciona tu avatar:</div>
+          <div className="registro-avatar-opciones">
             {AVATAR_OPTIONS.map((img, i) => (
-              <label key={i} className="d-flex flex-column align-items-center">
+              <label key={i} className="registro-avatar-radio d-flex flex-column align-items-center">
                 <input
                   type="radio"
                   name="avatar"
                   value={img}
                   checked={form.avatar === img}
                   onChange={handleAvatarChange}
-                  className="mb-1"
+                  style={{ display: "none" }}
                   required
                 />
-                <img
-                  src={img}
-                  alt={`Avatar ${i + 1}`}
-                  style={{
-                    width: 60,
-                    height: 60,
-                    borderRadius: "50%",
-                    border: form.avatar === img ? "2px solid #0d6efd" : "1px solid #bbb",
-                  }}
-                />
+                <img src={img} alt={`Avatar ${i + 1}`} />
               </label>
             ))}
           </div>
         </div>
-
-        <div className="form-check mb-3">
+        <div className="form-check registro-checkbox mb-4">
           <input className="form-check-input" id="terminos" type="checkbox" name="terminos" checked={form.terminos} onChange={handleChange} required />
           <label htmlFor="terminos" className="form-check-label">
             Acepto los términos y condiciones
           </label>
         </div>
-        <button className="btn btn-primary w-100" type="submit">
+        <button className="btn registro-btn w-100" type="submit">
           Guardar
         </button>
       </form>
