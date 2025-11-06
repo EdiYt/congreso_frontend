@@ -1,3 +1,52 @@
+.participantes-bg {
+  background: linear-gradient(135deg, #f8fafc 0%, #e0ebff 100%);
+  min-height: 100vh;
+}
+
+.menu-hamburguesa {
+  width: 32px;
+  height: 22px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  cursor: pointer;
+  z-index: 10;
+}
+
+.menu-hamburguesa span {
+  display: block;
+  height: 4px;
+  border-radius: 1px;
+  background: #222;
+  transition: 0.3s;
+}
+
+.menu-popup {
+  position: absolute;
+  top: 40px;
+  right: 0;
+  min-width: 180px;
+  background: #fff;
+  border-radius: 0.7rem;
+  padding: .8rem 0;
+  box-shadow: 0 8px 32px 0 rgba(0,70,130,0.10);
+  z-index: 30;
+}
+.menu-popup .dropdown-item {
+  background: none;
+  border: none;
+  width: 100%;
+  text-align: left;
+  padding: .6rem 1.1rem;
+  font-size: 1.04rem;
+  color: #212529;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.menu-popup .dropdown-item:hover {
+  background: #f0f4f9;
+}
+
 .card {
   transition: box-shadow 0.3s ease;
 }

@@ -1,82 +1,117 @@
 import React, { useEffect, useState } from "react";
 import ParticipanteCard from "../components/ParticipanteCard";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import ticImg from "../assets/tic.png";
 import "../styles/participantes.css";
 
 const ParticipantesList = () => {
   const [participantes, setParticipantes] = useState([]);
   const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(true);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetchParticipantes();
   }, []);
 
   const fetchParticipantes = async (filter = "") => {
-    setLoading(true);
-    try {
-      // Cambia la URL al endpoint de tu backend
-      const url = filter
-        ? `http://localhost:3000/api/participantes?search=${encodeURIComponent(filter)}`
-        : "http://localhost:3000/api/participantes";
-      const res = await fetch(url);
-      const data = await res.json();
-      setParticipantes(data);
-    } catch (error) {
-      setParticipantes([]);
-    } finally {
-      setLoading(false);
+  setLoading(true);
+  try {
+    let url;
+    if (!filter) {
+      url = "http://localhost:3000/api/listado";
+    } else {
+      url = `http://localhost:3000/api/listado/buscar?search=${encodeURIComponent(filter)}`;
     }
-  };
+    const res = await fetch(url);
+    const data = await res.json();
+    setParticipantes(Array.isArray(data) ? data : []);
+  } catch (error) {
+    setParticipantes([]);
+  } finally {
+    setLoading(false);
+  }
+};
+
 
   const handleSearchChange = (e) => setSearch(e.target.value);
-
   const handleSearchSubmit = (e) => {
     e.preventDefault();
     fetchParticipantes(search);
   };
 
+  const handleNavigate = (ruta) => {
+    setMenuOpen(false);
+    navigate(ruta);
+  };
+
   return (
-    <div className="container py-5">
-      <div className="d-flex justify-content-between align-items-center mb-4">
-        <h2 className="fw-bold text-primary">Listado de Participantes</h2>
-        <Link to="/registro" className="btn btn-success shadow-sm">
-          Registrar nuevo
-        </Link>
-      </div>
-      <form onSubmit={handleSearchSubmit} className="input-group mb-5" style={{maxWidth:"400px"}}>
-        <input
-          type="text"
-          className="form-control"
-          placeholder="Buscar por nombre"
-          value={search}
-          onChange={handleSearchChange}
-        />
-        <button className="btn btn-outline-primary" type="submit">
-          Buscar
-        </button>
-      </form>
-      {loading ? (
-        <div className="my-5 text-center">
-          <div className="spinner-border text-primary" role="status"></div>
-          <span className="ms-2 text-primary">Cargando...</span>
+    <div className="container-fluid min-vh-100 d-flex flex-column">
+      {/* Header */}
+      <div className="row py-4 align-items-center border-bottom">
+        <div className="col-2 text-start">
+          <img src={ticImg} alt="Logo TICs" className="img-fluid" style={{ maxWidth: 120 }} />
         </div>
-      ) : participantes.length === 0 ? (
-        <p className="alert alert-warning mt-4 text-center">No se encontraron participantes.</p>
-      ) : (
-        <div className="row justify-content-center">
-          {participantes.map((p) => (
-            <div key={p.id} className="col-sm-10 col-md-6 col-lg-4 mb-4">
-              <Link
-                to={`/gafete/${p.id}`}
-                style={{ textDecoration: "none", color: "inherit" }}
-              >
-                <ParticipanteCard participante={p} />
-              </Link>
+        <div className="col-8 text-center">
+          <h2 className="fw-bold text-primary">Asistentes registrados</h2>
+        </div>
+        <div className="col-2 text-end position-relative">
+          <div 
+            className="menu-hamburguesa d-inline-block"
+            style={{ cursor: "pointer" }} 
+            onClick={() => setMenuOpen(v => !v)}>
+            <span style={{display: 'block', height: 4, background:'#222', marginBottom:4, borderRadius: 2}} />
+            <span style={{display: 'block', height: 4, background:'#222', marginBottom:4, borderRadius: 2}} />
+            <span style={{display: 'block', height: 4, background:'#222', borderRadius: 2}} />
+          </div>
+          {menuOpen && (
+            <div className="bg-white rounded shadow p-2 position-absolute" style={{zIndex:30, top:40, right:0}}>
+              <button className="dropdown-item" onClick={() => handleNavigate("/")}>Inicio</button>
+              <button className="dropdown-item" onClick={() => handleNavigate("/participantes")}>Listado</button>
+              <button className="dropdown-item" onClick={() => handleNavigate("/registro")}>Registro</button>
             </div>
-          ))}
+          )}
         </div>
-      )}
+      </div>
+      {/* Main Content */}
+      <div className="row justify-content-center mt-4 flex-grow-1">
+        <div className="col-md-8">
+          <form onSubmit={handleSearchSubmit} className="input-group mb-3">
+            <input
+              type="text"
+              className="form-control"
+              placeholder="Buscar por nombre"
+              value={search}
+              onChange={handleSearchChange}
+            />
+            <button className="btn btn-outline-primary" type="submit">
+              Buscar
+            </button>
+          </form>
+          <Link to="/registro" className="btn btn-success mb-3">
+            Registro
+          </Link>
+          {loading ? (
+            <div className="my-5 text-center">
+              <div className="spinner-border text-primary" role="status"></div>
+              <span className="ms-2 text-primary">Cargando...</span>
+            </div>
+          ) : participantes.length === 0 ? (
+            <p className="alert alert-warning text-center">No se encontraron participantes.</p>
+          ) : (
+            <div className="row">
+              {participantes.map((p) => (
+                <div key={p.participante_id} className="col-sm-12 col-md-6 col-lg-4 mb-4">
+                  <Link to={`/gafete/${p.participante_id}`} style={{ textDecoration: "none", color: "inherit" }}>
+                    <ParticipanteCard participante={p} />
+                  </Link>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      </div>
     </div>
   );
 };
